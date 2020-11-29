@@ -97,7 +97,7 @@ class Reservation extends Component {
                         accessibilityLabel='Tap me to search for available campsites to reserve'
                     />
                 </View>
-                <Modal
+                                <Modal
                     animationType={'slide'}
                     transparent={false}
                     visible={this.state.showModal}
