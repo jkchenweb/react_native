@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Text, View, ScrollView, FlatList,
     Modal, Button, StyleSheet,
-    Alert, PanResponder } from 'react-native';
+    Alert, PanResponder, Share } from 'react-native';
 import { Card, Icon, Input, Rating } from 'react-native-elements';
 import { CAMPSITES } from '../shared/campsites';
 import { COMMENTS } from '../shared/comments';
@@ -33,6 +33,16 @@ function RenderCampsite(props) {
     const recognizeDrag = ({dx}) => (dx < -200) ? true : false;
 
     const recognizeComment = ({dx}) => (dx > 200) ? true : false;
+
+    const shareCampsite = (title, message, url) => {
+        Share.share({
+            title: title,
+            message: `${title}: ${message} ${url}`,
+            url: url
+        },{
+            dialogTitle: 'Share ' + title
+        });
+    };
 
     const panResponder = PanResponder.create({
         onStartShouldSetPanResponder: () => true,
@@ -98,6 +108,14 @@ function RenderCampsite(props) {
                         raised
                         reverse
                         onPress={() => props.onShowModal()}
+                    />
+                    <Icon
+                            name={'share'}
+                            type='font-awesome'
+                            color='#5637DD'
+                            raised
+                            reverse
+                            onPress={() => shareCampsite(campsite.name, campsite.description, baseUrl + campsite.image)} 
                     />
                 </View>
             </Card>
